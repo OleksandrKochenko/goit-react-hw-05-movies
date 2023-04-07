@@ -1,4 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledLink = styled(NavLink)`
+  color: #212121;
+  &.active {
+    color: orangered;
+  }
+`;
 
 const Layout = () => {
   return (
@@ -9,10 +17,10 @@ const Layout = () => {
             margin: '10px',
           }}
         >
-          <NavLink style={{ margin: '0 10px 0 0' }} to="/">
+          <StyledLink style={{ margin: '0 10px 0 0' }} to="/">
             Home
-          </NavLink>
-          <NavLink to="/movies">Movies</NavLink>
+          </StyledLink>
+          <StyledLink to="/movies">Movies</StyledLink>
         </nav>
       </header>
       <hr />

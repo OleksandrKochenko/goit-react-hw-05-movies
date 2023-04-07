@@ -1,6 +1,14 @@
 import { useParams, Link, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { fetchPhotos } from 'services/api';
+
+const StyledLink = styled(Link)`
+  color: #212121;
+  &:focus {
+    color: orangered;
+  }
+`;
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -58,10 +66,10 @@ const MovieDetails = () => {
         <p style={{ margin: '0 10px' }}>Additional information</p>
         <ul>
           <li>
-            <Link to="cast">Cast</Link>
+            <StyledLink to="cast">Cast</StyledLink>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <StyledLink to="reviews">Reviews</StyledLink>
           </li>
         </ul>
       </div>

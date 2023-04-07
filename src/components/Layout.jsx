@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -25,47 +26,12 @@ const Layout = () => {
       </header>
       <hr />
       <main>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </main>
     </>
   );
 };
 
 export default Layout;
-
-// import { NavLink, Outlet } from 'react-router-dom';
-// import { fetchPhotos } from 'services/api';
-
-// const Layout = () => {
-//   const params = {
-//     // query: 'avatar',
-//     // include_adult: true,
-//     // language: 'en-US',
-//   };
-//   const url = 'trending/movie/day';
-
-//   const fetch = async () => {
-//     const responce = await fetchPhotos(url, params);
-//     console.log(responce);
-//   };
-
-//   return (
-//     <>
-//       <header>
-//         <nav>
-//           <NavLink to="/">Home</NavLink>
-//           <NavLink to="/dogs">Collection</NavLink>
-//         </nav>
-//       </header>
-//       <main>
-//         <Outlet />
-//         <button type="button" onClick={fetch}>
-//           Click
-//         </button>
-//       </main>
-//       <footer>Footer</footer>
-//     </>
-//   );
-// };
-
-// export default Layout;

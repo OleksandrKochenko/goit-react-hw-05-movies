@@ -1,4 +1,5 @@
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useRef } from 'react';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { fetchPhotos } from 'services/api';
@@ -13,6 +14,8 @@ const StyledLink = styled(Link)`
 const MovieDetails = () => {
   const { movieId } = useParams();
   const url = `movie/${movieId}`;
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/movies');
 
   const [{ title, img, year, score, overview, genres }, setState] = useState({
     title: '',
@@ -42,6 +45,9 @@ const MovieDetails = () => {
 
   return (
     <>
+      <Link to={backLink.current} style={{ margin: '0 10px' }}>
+        {'<-'} Go Back
+      </Link>
       <div
         style={{
           display: 'flex',

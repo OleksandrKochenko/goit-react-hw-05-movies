@@ -1,25 +1,28 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchList from 'components/search-list';
 
 const Movies = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get('q') ?? '';
+  const [query, setQuery] = useState(q);
 
   const handleChange = e => {
-    setInputValue(e.currentTarget.value);
+    e.target.value === ''
+      ? setSearchParams({})
+      : setSearchParams({ q: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    setQuery(inputValue.trim());
-    setInputValue('');
+    setQuery(q.trim());
   };
 
   return (
     <>
       <form style={{ margin: '0 10px' }} onSubmit={handleSubmit}>
         <input
-          value={inputValue}
+          value={q}
           type="text"
           autoComplete="off"
           autoFocus

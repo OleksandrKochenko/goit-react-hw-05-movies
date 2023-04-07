@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fetchPhotos } from 'services/api';
 
 const SearchList = ({ query }) => {
   const [movies, setMovies] = useState([]);
   const url = 'search/movie';
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +30,9 @@ const SearchList = ({ query }) => {
           {movies.map(movie => {
             return (
               <li key={movie.id} id={movie.id}>
-                <Link to={`${movie.id}`}>{movie.title}</Link>
+                <Link to={`${movie.id}`} state={{ from: location }}>
+                  {movie.title}
+                </Link>
               </li>
             );
           })}

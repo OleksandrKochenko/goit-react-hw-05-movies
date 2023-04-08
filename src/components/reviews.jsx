@@ -1,19 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchPhotos } from 'services/api';
+import { fetchMovieReviews } from 'services/api';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  const url = `movie/${movieId}/reviews`;
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const responce = await fetchPhotos(url, {});
+      const responce = await fetchMovieReviews(movieId);
       setReviews([...responce.results]);
     }
     fetchData();
-  }, [url]);
+  }, [movieId]);
 
   return (
     <>

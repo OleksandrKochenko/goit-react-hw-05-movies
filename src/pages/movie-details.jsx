@@ -1,8 +1,8 @@
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { fetchPhotos } from 'services/api';
+import { fetchMovieDetails } from '../services/api';
 
 const StyledLink = styled(Link)`
   color: #212121;
@@ -13,7 +13,6 @@ const StyledLink = styled(Link)`
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const url = `movie/${movieId}`;
   const location = useLocation();
   const backLink = useRef(location.state?.from ?? '/movies');
 
@@ -28,7 +27,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const responce = await fetchPhotos(url, {});
+      const responce = await fetchMovieDetails(movieId);
       setState({
         title: responce.title,
         img: `https://image.tmdb.org/t/p/w300/${responce.poster_path}`,
@@ -41,7 +40,7 @@ const MovieDetails = () => {
       });
     }
     fetchData();
-  }, [url]);
+  }, [movieId]);
 
   return (
     <>
@@ -80,7 +79,9 @@ const MovieDetails = () => {
         </ul>
       </div>
       <hr />
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

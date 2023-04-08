@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchPhotos } from 'services/api';
+import { fetchTrendings } from 'services/api';
 
 const TrendingList = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
-  const url = 'trending/movie/day';
 
   useEffect(() => {
     async function fetchData() {
-      const responce = await fetchPhotos(url, {});
+      const responce = await fetchTrendings();
       setMovies(() => {
         return [...responce.results];
       });

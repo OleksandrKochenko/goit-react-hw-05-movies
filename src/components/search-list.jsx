@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchPhotos } from 'services/api';
+import { fetchSerchQuery } from 'services/api';
 
 const SearchList = ({ query }) => {
   const [movies, setMovies] = useState([]);
-  const url = 'search/movie';
   const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
-      const responce = await fetchPhotos(url, { query: query });
+      const responce = await fetchSerchQuery(query);
       if (responce.results.length === 0) {
         alert('There is no movies for this query');
         return;

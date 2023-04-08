@@ -1,21 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchPhotos } from 'services/api';
+import { fetchMovieCast } from 'services/api';
 
 const Cast = () => {
   const { movieId } = useParams();
-  const url = `movie/${movieId}/credits`;
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
     if (cast.length === 0) {
       async function fetchData() {
-        const responce = await fetchPhotos(url, {});
+        const responce = await fetchMovieCast(movieId);
         setCast([...responce.cast]);
       }
       fetchData();
     }
-  }, [url, cast]);
+  }, [movieId, cast]);
 
   return (
     <ul>
